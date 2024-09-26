@@ -4,18 +4,15 @@ import "./globals.css";
 import type { ReactNode } from "react";
 import { ThemeProvider } from "styled-components";
 import { useEffect, useState } from "react";
-import { Button } from "antd";
 import Head from "next/head";
-import { AppProvider, useAppContext } from '@/app/context/AppContext';
+import { AppProvider, useAppContext } from "@/app/context/AppContext";
 import Loading from "./components/Loading";
-
 export default function RootLayout({ children }: { children: ReactNode }) {
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
     setIsMounted(true);
   }, []);
-
 
   return (
     <html>
@@ -30,14 +27,10 @@ export default function RootLayout({ children }: { children: ReactNode }) {
 }
 
 function BodyContent({ children }: { children: ReactNode }) {
-  const { theme, toggleTheme } = useAppContext();
-
+  const { theme } = useAppContext();
   return (
     <ThemeProvider theme={theme}>
       <body style={{ backgroundColor: theme.background, color: theme.color }}>
-        <Button onClick={toggleTheme} style={{ margin: "20px" }}>
-          Alternar Tema
-        </Button>
         {children}
       </body>
     </ThemeProvider>
