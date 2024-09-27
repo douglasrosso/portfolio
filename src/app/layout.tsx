@@ -1,13 +1,12 @@
 "use client";
 
-import "./globals.css";
-import type { ReactNode } from "react";
+import "../styles/globals.css";
 import { ThemeProvider } from "styled-components";
 import { useEffect, useState } from "react";
-import Head from "next/head";
-import { AppProvider, useAppContext } from "@/app/context/AppContext";
+import { StoreProvider, useAppContext } from "@/app/context/StoreContext";
 import Loading from "./components/Loading";
-export default function RootLayout({ children }: { children: ReactNode }) {
+import { App } from "antd";
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
@@ -16,23 +15,24 @@ export default function RootLayout({ children }: { children: ReactNode }) {
 
   return (
     <html>
-      <Head>
-        <title>My App</title>
-      </Head>
-      <AppProvider>
-        {!isMounted ? <Loading /> : <BodyContent>{children}</BodyContent>}
-      </AppProvider>
+      <body>
+        <App>
+          <StoreProvider>
+            {!isMounted ? <Loading /> : <Content>{children}</Content>}
+          </StoreProvider>
+        </App>
+      </body>
     </html>
   );
 }
 
-function BodyContent({ children }: { children: ReactNode }) {
+function Content({ children }: { children: React.ReactNode }) {
   const { theme } = useAppContext();
   return (
     <ThemeProvider theme={theme}>
-      <body style={{ backgroundColor: theme.background, color: theme.color }}>
+      <div style={{ backgroundColor: theme.contrast, color: theme.color, minHeight: "100vh" }}>
         {children}
-      </body>
+      </div>
     </ThemeProvider>
   );
 }
