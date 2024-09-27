@@ -5,8 +5,12 @@ import { ThemeProvider } from "styled-components";
 import { useEffect, useState } from "react";
 import { StoreProvider, useAppContext } from "@/app/context/StoreContext";
 import Loading from "./components/Loading";
-import { App } from "antd";
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+import { App, Layout } from "antd";
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
@@ -30,9 +34,15 @@ function Content({ children }: { children: React.ReactNode }) {
   const { theme } = useAppContext();
   return (
     <ThemeProvider theme={theme}>
-      <div style={{ backgroundColor: theme.contrast, color: theme.color, minHeight: "100vh" }}>
+      <Layout
+        style={{
+          backgroundColor: theme.contrast,
+          color: theme.color,
+          minHeight: "100vh",
+        }}
+      >
         {children}
-      </div>
+      </Layout>
     </ThemeProvider>
   );
 }
