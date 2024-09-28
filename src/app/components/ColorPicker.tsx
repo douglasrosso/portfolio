@@ -2,12 +2,12 @@
 
 import React from "react";
 import styled from "styled-components";
-import { useAppContext } from "@/app/context/StoreContext";
+import { useStore } from "@/app/context/StoreContext";
 import { ColorPicker as ColorPickerAntD } from "antd";
 import { Color } from "antd/es/color-picker";
 
 const ColorPicker = () => {
-    const { theme, changeTheme } = useAppContext();
+    const { theme, changeTheme } = useStore();
 
     const handleColorChange = (color: Color) => {
         changeTheme(color.toHexString());

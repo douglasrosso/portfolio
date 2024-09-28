@@ -1,3 +1,5 @@
+"use client";
+
 import React, {
   createContext,
   useContext,
@@ -75,10 +77,10 @@ export const StoreProvider = ({ children }: { children: ReactNode }) => {
   );
 };
 
-export const useAppContext = () => {
+export const useStore = () => {
   const context = useContext(AppContext);
   if (!context) {
-    throw new Error("useAppContext must be used within an AppProvider");
+    throw new Error("useStore deve ser usado dentro de um StoreProvider");
   }
   return context;
 };

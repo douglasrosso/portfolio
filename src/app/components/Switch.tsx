@@ -2,10 +2,10 @@
 
 import React from "react";
 import styled from "styled-components";
-import { useAppContext } from "@/app/context/StoreContext";
+import { useStore } from "@/app/context/StoreContext";
 
 const Switch = () => {
-  const { theme, toggleTheme } = useAppContext();
+  const { theme, toggleTheme } = useStore();
 
   return (
     <StyledWrapper>

@@ -9,11 +9,11 @@ import {
   InstagramOutlined,
   LinkedinOutlined,
 } from "@ant-design/icons";
-import { useAppContext } from "./context/StoreContext";
+import { useStore } from "./context/StoreContext";
 import styled from "styled-components";
 
 const HomePage = () => {
-  const { theme } = useAppContext();
+  const { theme } = useStore();
   return (
     <div style={{ padding: "20px" }}>
       <StyledWrapper>

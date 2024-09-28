@@ -1,11 +1,13 @@
 "use client";
 
-import "../styles/globals.css";
-import { ThemeProvider } from "styled-components";
+import GlobalStyle from "@/app/GlobalStyle";
+import styled, { ThemeProvider } from "styled-components";
 import { useEffect, useState } from "react";
-import { StoreProvider, useAppContext } from "@/app/context/StoreContext";
-import Loading from "./components/Loading";
+import { StoreProvider, useStore } from "@/app/context/StoreContext";
 import { App, Layout } from "antd";
+import Loading from "./components/Loading";
+import Head from "next/head";
+
 export default function RootLayout({
   children,
 }: {
@@ -18,36 +20,48 @@ export default function RootLayout({
   }, []);
 
   return (
-    <html>
-      <head>
+    <html lang="en">
+      <Head>
         <meta charSet="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Douglas Rosso | Software Engineer</title>
-      </head>
+      </Head>
       <body>
-        <App>
-          <StoreProvider>
-            {!isMounted ? <Loading /> : <Content>{children}</Content>}
-          </StoreProvider>
-        </App>
+        <StoreProvider>
+          <Content isMounted={isMounted}>{children}</Content>
+        </StoreProvider>
       </body>
     </html>
   );
 }
 
-function Content({ children }: { children: React.ReactNode }) {
-  const { theme } = useAppContext();
+function Content({
+  children,
+  isMounted,
+}: {
+  children: React.ReactNode;
+  isMounted: boolean;
+}) {
+  const { theme } = useStore();
+
+  if (!isMounted) {
+    return <Loading />;
+  }
+
   return (
     <ThemeProvider theme={theme}>
-      <Layout
-        style={{
-          backgroundColor: theme.contrast,
-          color: theme.color,
-          minHeight: "100vh",
-        }}
-      >
-        {children}
-      </Layout>
+      <GlobalStyle />
+      <App>
+        <Layout
+          style={{
+            backgroundColor: theme.contrast,
+            color: theme.color,
+            minHeight: "100vh",
+          }}
+        >
+          {children}
+        </Layout>
+      </App>
     </ThemeProvider>
   );
 }
