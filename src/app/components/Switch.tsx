@@ -8,11 +8,7 @@ const Switch = () => {
   const { theme, toggleTheme } = useAppContext();
 
   return (
-    <StyledWrapper
-      $color={theme.color}
-      $background={theme.background}
-      $isDark={theme.isDark ? 1 : 0}
-    >
+    <StyledWrapper>
       <input
         id="switch"
         type="checkbox"
@@ -31,11 +27,7 @@ const Switch = () => {
   );
 };
 
-const StyledWrapper = styled.div<{
-  $background: string;
-  $color: string;
-  $isDark: number;
-}>`
+const StyledWrapper = styled.div`
   width: fit-content;
 
   .content {
@@ -50,8 +42,8 @@ const StyledWrapper = styled.div<{
     border-radius: 100%;
     width: 30px;
     height: 30px;
-    background: ${(props) =>
-      props.$isDark
+    background: ${({ theme }) =>
+      theme.isDark
         ? "linear-gradient(40deg, #8983f7, #a3dafb 70%)"
         : "linear-gradient(40deg, #ff0080, #ff8c00 70%)"};
     margin: auto;
@@ -64,8 +56,8 @@ const StyledWrapper = styled.div<{
     right: 0;
     width: 20px;
     height: 20px;
-    background: ${(props) => props.$background};
-    transform: ${(props) => (!props.$isDark ? "scale(0)" : "scale(1)")};
+    background: ${({ theme }) => theme.background};
+    transform: ${({ theme }) => (!theme.isDark ? "scale(0)" : "scale(1)")};
     transform-origin: top right;
     transition: transform 0.6s cubic-bezier(0.645, 0.045, 0.355, 1);
   }
@@ -102,8 +94,8 @@ const StyledWrapper = styled.div<{
   }
 
   [type="checkbox"]:checked + .content .crescent {
-    transform: ${(props) => (props.$isDark ? "scale(1)" : "scale(0)")};
-    background: ${(props) => props.$background};
+    transform: ${({ theme }) => (theme.isDark ? "scale(1)" : "scale(0)")};
+    background: ${({ theme }) => theme.background};
   }
 
   [type="checkbox"]:checked + .content {

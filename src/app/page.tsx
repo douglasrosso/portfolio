@@ -10,23 +10,49 @@ import {
   LinkedinOutlined,
 } from "@ant-design/icons";
 import { useAppContext } from "./context/StoreContext";
+import styled from "styled-components";
 
 const HomePage = () => {
   const { theme } = useAppContext();
   return (
     <div style={{ padding: "20px" }}>
-      <Card>
-        <Switch />
-        <InstagramOutlined style={{ fontSize: "32px", color: theme.color }} />
-        <LinkedinOutlined style={{ fontSize: "32px", color: theme.color }} />
-        <GithubOutlined style={{ fontSize: "32px", color: theme.color }} />
-        <h1>Olá sou, Douglas Rosso</h1>
+      <StyledWrapper>
+        <StyledHeader>
+          <Switch />
+          <StyledSocialMedias>
+            <InstagramOutlined
+              style={{ fontSize: "32px", color: theme.color }}
+            />
+            <LinkedinOutlined
+              style={{ fontSize: "32px", color: theme.color }}
+            />
+            <GithubOutlined style={{ fontSize: "32px", color: theme.color }} />
+          </StyledSocialMedias>
+        </StyledHeader>
+        <h1>&lt;Developer/&gt;</h1>
+        <h3>
+          Front-end and back-end developer who writes clean, elegant, and
+          efficient code.
+        </h3>
         <Button type="primary">
           <Link href="/about">Ir para Sobre</Link>
         </Button>
-      </Card>
+      </StyledWrapper>
     </div>
   );
 };
+
+const StyledWrapper = styled(Card)``;
+
+const StyledHeader = styled.div`
+  display: flex;
+  gap: 20px;
+  justify-content: space-between;
+`;
+
+const StyledSocialMedias = styled.div`
+  display: flex;
+  gap: 5px;
+`;
 
 export default HomePage;

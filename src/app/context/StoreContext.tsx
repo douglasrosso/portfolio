@@ -1,4 +1,11 @@
-import React, { createContext, useContext, useState, ReactNode } from "react";
+import React, {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  ReactNode,
+} from "react";
+import Cookies from "js-cookie";
 
 interface StoreContextType {
   theme: ThemeType;
@@ -33,17 +40,24 @@ export const StoreProvider = ({ children }: { children: ReactNode }) => {
     isDark: true,
   };
 
-  const [isLightTheme, setIsLightTheme] = useState(true);
+  const getInitialTheme = (): ThemeType => {
+    const savedTheme = Cookies.get("theme");
+    if (savedTheme) {
+      return JSON.parse(savedTheme);
+    }
+    return lightTheme;
+  };
 
-  const [theme, setTheme] = useState<ThemeType>(
-    isLightTheme ? lightTheme : darkTheme
-  );
+  const [theme, setTheme] = useState<ThemeType>(getInitialTheme);
+
+  useEffect(() => {
+    Cookies.set("theme", JSON.stringify(theme), { expires: 365 });
+  }, [theme]);
 
   const toggleTheme = () => {
-    setIsLightTheme((prev) => {
-      const newTheme = prev ? darkTheme : lightTheme;
-      setTheme(newTheme);
-      return !prev;
+    setTheme((prevTheme) => {
+      const newTheme = prevTheme.isDark ? lightTheme : darkTheme;
+      return newTheme;
     });
   };
 
