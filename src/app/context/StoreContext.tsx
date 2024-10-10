@@ -30,14 +30,14 @@ export const StoreProvider = ({ children }: { children: ReactNode }) => {
     primaryColor: "#1890ff",
     background: "#ffffff",
     contrast: "#d8d8d8",
-    color: "#26242e",
+    color: "#191919",
     isDark: false,
   };
 
   const darkTheme = {
     primaryColor: "#ff4d4f",
-    background: "#34323d",
-    contrast: "#26242e",
+    background: "#363636",
+    contrast: "#191919",
     color: "#ffffff",
     isDark: true,
   };

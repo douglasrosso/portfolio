@@ -56,7 +56,7 @@ function Content({
           style={{
             backgroundColor: theme.contrast,
             color: theme.color,
-            minHeight: "100vh",
+            height: "100vh",
           }}
         >
           {children}
