@@ -1,7 +1,7 @@
 "use client";
 
 import GlobalStyle from "@/app/GlobalStyle";
-import styled, { ThemeProvider } from "styled-components";
+import { ThemeProvider } from "styled-components";
 import { useEffect, useState } from "react";
 import { StoreProvider, useStore } from "@/app/context/StoreContext";
 import { App, Layout } from "antd";
